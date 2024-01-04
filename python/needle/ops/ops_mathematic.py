@@ -79,9 +79,7 @@ class PowerScalar(TensorOp):
         return a ** self.scalar
 
     def gradient(self, out_grad, node):
-        ### BEGIN YOUR SOLUTION
-        raise NotImplementedError()
-        ### END YOUR SOLUTION
+        return out_grad * self.scalar * (node.inputs[0] ** (self.scalar - 1))
 
 
 def power_scalar(a, scalar):
@@ -117,9 +115,8 @@ class EWiseDiv(TensorOp):
         return a / b
 
     def gradient(self, out_grad, node):
-        ### BEGIN YOUR SOLUTION
-        raise NotImplementedError()
-        ### END YOUR SOLUTION
+        lhs, rhs = node.inputs
+        return out_grad / rhs, out_grad * (-lhs / (rhs ** 2))
 
 
 def divide(a, b):
@@ -134,9 +131,7 @@ class DivScalar(TensorOp):
         return a / self.scalar
 
     def gradient(self, out_grad, node):
-        ### BEGIN YOUR SOLUTION
-        raise NotImplementedError()
-        ### END YOUR SOLUTION
+        return (out_grad / self.scalar, )
 
 
 def divide_scalar(a, scalar):
@@ -159,9 +154,7 @@ class Transpose(TensorOp):
         return array_api.transpose(a, axes_permutation)
 
     def gradient(self, out_grad, node):
-        ### BEGIN YOUR SOLUTION
-        raise NotImplementedError()
-        ### END YOUR SOLUTION
+        return transpose(out_grad, self.axes)
 
 
 def transpose(a, axes=None):
@@ -176,9 +169,7 @@ class Reshape(TensorOp):
         return array_api.reshape(a, self.shape)
 
     def gradient(self, out_grad, node):
-        ### BEGIN YOUR SOLUTION
-        raise NotImplementedError()
-        ### END YOUR SOLUTION
+        return reshape(out_grad, node.inputs[0].shape)
 
 
 def reshape(a, shape):
@@ -193,9 +184,8 @@ class BroadcastTo(TensorOp):
         return array_api.broadcast_to(a, self.shape)
 
     def gradient(self, out_grad, node):
-        ### BEGIN YOUR SOLUTION
-        raise NotImplementedError()
-        ### END YOUR SOLUTION
+        pass
+
 
 
 def broadcast_to(a, shape):
