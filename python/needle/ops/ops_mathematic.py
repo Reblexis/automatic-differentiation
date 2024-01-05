@@ -205,6 +205,8 @@ class Summation(TensorOp):
         self.axes = axes
 
     def compute(self, a):
+        if self.axes is None:
+            self.axes = tuple(range(len(a.shape)))
         return array_api.sum(a, self.axes)
 
     def gradient(self, out_grad, node):
